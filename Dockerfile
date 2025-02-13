@@ -12,14 +12,14 @@ RUN apt-get update && apt-get install -y \
     libpq-dev gcc && \
     rm -rf /var/lib/apt/lists/*
 
-# Create and activate a virtual environment
-RUN python -m venv venv
+# Create a virtual environment
+RUN python -m venv /app/venv
 
-# Install dependencies
-RUN /bin/bash -c "source venv/bin/activate && pip install --upgrade pip && pip install -r requirements.txt"
+# Install dependencies using the virtual environment's Python
+RUN /app/venv/bin/pip install --upgrade pip && /app/venv/bin/pip install -r requirements.txt
 
 # Expose Django's default port
 EXPOSE 8000
 
 # Start the application using Gunicorn
-CMD ["/bin/bash", "-c", "source venv/bin/activate && gunicorn --bind 0.0.0.0:8000 my_project.wsgi:application"]
+CMD ["/app/venv/bin/gunicorn", "--bind", "0.0.0.0:8000", "my_project.wsgi:application"]
