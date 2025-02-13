@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        GIT_CREDENTIALS_ID = 'git-credential'
+        GIT_CREDENTIALS_ID = 'git-credentials'
         GIT_REPO = 'https://github.com/logeswaran-inoesis/django.git' 
         DOCKER_IMAGE = 'lokeshmani28/django'
         VERSION_TAG = "${BUILD_NUMBER}" // Use Jenkins build number as version tag
